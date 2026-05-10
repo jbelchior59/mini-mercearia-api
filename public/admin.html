@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin • Mini-Mercearia</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body class="admin-page">
+    <header class="topbar">
+      <h1>🛠️ Admin — Produtos (Fruta)</h1>
+      <nav>
+        <button class="tab-btn active" data-tab="produtos-admin">Produtos</button>
+        <button class="tab-btn" data-tab="vitrine-admin">Vista Cliente</button>
+        <button class="tab-btn" data-tab="cupons-admin">Cupões</button>
+        <button id="logout-btn" class="tab-btn">Logout</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="tab active" id="produtos-admin">
+        <h2>Produtos</h2>
+        <p class="section-subtitle">Criar, editar e apagar produtos</p>
+
+        <div class="card" style="margin-bottom:14px;">
+          <h3>Novo produto</h3>
+          <form id="product-create-form" class="form-row">
+            <label>
+              Nome
+              <input name="name" required />
+            </label>
+            <label>
+              Categoria
+              <input name="category" value="fruta" readonly />
+            </label>
+            <label>
+              Preço
+              <input name="price" type="number" step="0.01" min="0" required />
+            </label>
+            <label>
+              Disponível
+              <select name="available">
+                <option value="true" selected>sim</option>
+                <option value="false">não</option>
+              </select>
+            </label>
+
+            <label>
+              Imagem (jpg/png/webp)
+              <input name="image" type="file" accept="image/*" />
+            </label>
+            <button class="btn-confirm" type="submit">Criar</button>
+          </form>
+          <p id="product-create-msg"></p>
+        </div>
+
+        <p id="products-msg"></p>
+
+        <!-- Pesquisa admin (extra) -->
+        <div class="filters" style="grid-template-columns: 1fr 200px;">
+          <label>
+            Pesquisar
+            <input id="admin-q" placeholder="nome/descrição..." />
+          </label>
+          <label>
+            Ordenar
+            <select id="admin-sort">
+              <option value="name_asc">Nome (A-Z)</option>
+              <option value="price_asc">Preço (↑)</option>
+              <option value="price_desc">Preço (↓)</option>
+              <option value="newest">Mais recentes</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Disponível</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      
+      <!-- VISTA CLIENTE (extra UI admin) -->
+      <section class="tab" id="vitrine-admin">
+        <h2>Vista Cliente</h2>
+        <p class="section-subtitle">Como os produtos aparecem para o cliente (apenas ativos/disponíveis)</p>
+
+        <div class="card" style="margin-bottom:14px;">
+          <div class="form-row" style="grid-template-columns: 1fr 200px 200px;">
+            <label>
+              Pesquisa
+              <input id="v-q" placeholder="ex.: maçã, banana, gala…" />
+            </label>
+            <label>
+              Ordenar
+              <select id="v-sort">
+                <option value="name_asc">Nome (A-Z)</option>
+                <option value="price_asc">Preço (Ascendente)</option>
+                <option value="price_desc">Preço (Descendente)</option>
+              </select>
+            </label>
+            <label>
+              Itens / página
+              <select id="v-limit">
+                <option value="12" selected>12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-row" style="grid-template-columns: 140px 1fr 1fr auto;">
+            <label>
+              Preço mín.
+              <input id="v-min" type="number" step="0.01" min="0" placeholder="0" />
+            </label>
+            <label>
+              Preço máx.
+              <input id="v-max" type="number" step="0.01" min="0" placeholder="10" />
+            </label>
+            <div></div>
+            <button id="v-apply" class="btn-confirm" type="button" style="align-self:end;">Aplicar</button>
+          </div>
+        </div>
+
+        <p id="vitrine-msg"></p>
+        <div id="vitrine-grid" class="grid grid-3-center"></div>
+
+        <div class="pager" style="margin-top:14px;">
+          <button id="v-prev" class="btn">◀</button>
+          <span id="v-page"></span>
+          <button id="v-next" class="btn">▶</button>
+        </div>
+      </section>
+
+<!-- CUPÕES (extra) -->
+      <section class="tab" id="cupons-admin" style="margin-top: 24px;">
+        <h2>Cupões</h2>
+        <p class="section-subtitle">Criar e gerir cupões de desconto para o checkout</p>
+
+        <div class="card" style="margin-bottom:14px;">
+          <h3>Novo cupão</h3>
+          <form id="coupon-create-form" class="form-row">
+            <label>
+              Código
+              <input name="code" placeholder="NATAL10" required />
+            </label>
+            <label>
+              Tipo
+              <select name="type">
+                <option value="percent">percentagem</option>
+                <option value="fixed">fixo (€)</option>
+              </select>
+            </label>
+            <label>
+              Valor
+              <input name="amount" type="number" step="0.01" min="0" required />
+            </label>
+            <label>
+              Mínimo (€)
+              <input name="minTotal" type="number" step="0.01" min="0" value="0" />
+            </label>
+            <label>
+              Início (opcional)
+              <input name="startsAt" placeholder="2025-12-20" />
+            </label>
+            <label>
+              Fim (opcional)
+              <input name="endsAt" placeholder="2025-12-31" />
+            </label>
+            <label>
+              Máx. usos (opcional)
+              <input name="maxUses" type="number" step="1" min="0" />
+            </label>
+            <label>
+              Ativo
+              <select name="active">
+                <option value="true" selected>sim</option>
+                <option value="false">não</option>
+              </select>
+            </label>
+            <button class="btn-confirm" type="submit">Criar</button>
+          </form>
+          <p id="coupon-create-msg"></p>
+        </div>
+
+        <p id="coupons-msg"></p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Mínimo</th>
+                <th>Usos</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="coupons-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      window.__API_BASE__ = "";
+    </script>
+    <script src="./admin.js" type="module"></script>
+  </body>
+</html>

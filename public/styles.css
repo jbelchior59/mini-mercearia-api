@@ -1,0 +1,660 @@
+:root {
+  --pad: 14px;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  margin: 0;
+  background: #dbeeff;
+  color: #1f2a37;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin: 0 0 12px;
+}
+
+header.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pad);
+  background: #eef7ff;
+  border-bottom: 1px solid #262a36;
+}
+
+nav button {
+  margin-left: 8px;
+  background: #eef7ff;
+  color: #1f2a37;
+  border: 1px solid #2f3648;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+nav button.active {
+  outline: 2px solid #4b84ff;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ---------- FRUTA ---------- */
+
+.section-subtitle {
+  margin: 0 0 12px;
+  color: #9aa7bd;
+  font-size: 0.95rem;
+}
+
+/* Pesquisa + filtros (extra) */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 10px 0 16px;
+  align-items: end;
+}
+
+@media (max-width: 900px) {
+  .filters { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .filters { grid-template-columns: 1fr; }
+}
+
+.grid-3-center {
+  grid-template-columns: repeat(3, minmax(220px, 260px));
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .grid-3-center {
+    grid-template-columns: repeat(2, minmax(220px, 260px));
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-3-center {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- CARDS ---------- */
+
+.card {
+  background: #e6f2ff;
+  border: 1px solid #252a39;
+  border-radius: var(--radius);
+  padding: var(--pad);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card h3 {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+}
+
+.card .thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #252a39;
+  background: #e6f2ff;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: 700;
+}
+
+.muted {
+  color: #9aa7bd;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn {
+  background: #e6f2ff;
+  border: 1px solid #37415a;
+  color: #1f2a37;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+/* ---------- TAKE-AWAY LINHA ---------- */
+
+.takeaway-wrapper {
+  position: relative;
+  margin-top: 12px;
+}
+
+.grid-takeaway-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 12px 4px 16px;
+}
+
+.grid-takeaway-row .card {
+  min-width: 240px;
+  max-width: 240px;
+  flex: 0 0 auto;
+}
+
+/* Scroll */
+.grid-takeaway-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.grid-takeaway-row::-webkit-scrollbar-thumb {
+  background: #e6f2ff;
+  border-radius: 4px;
+}
+
+/* ---------- CORES PRATO / GRELHADOS ---------- */
+
+.card.dish-daily {
+  border-color: #4b84ff;
+}
+
+.card.dish-daily .muted {
+  color: #4b84ff;
+}
+
+.card.dish-grill {
+  border-color: #ff9f43;
+}
+
+.card.dish-grill .muted {
+  color: #ff9f43;
+}
+
+/* ---------- SETAS ---------- */
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e6f2ff;
+  border: 1px solid #2f3648;
+  color: #1f2a37;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.scroll-btn.left {
+  left: -18px;
+}
+
+.scroll-btn.right {
+  right: -18px;
+}
+
+.scroll-btn:hover {
+  filter: brightness(1.2);
+}
+
+/* ---------- TABS ---------- */
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+/* ---------- CARRINHO ---------- */
+
+.cart-coupon-badge {
+  position: relative;
+  float: right;
+  margin: 0 0 12px 12px;
+  width: 320px;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  border-radius: 18px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  background-image:
+    linear-gradient(90deg, rgba(183, 28, 28, 0.92), rgba(255, 82, 82, 0.86)),
+    url('./assets/presente-bg.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.cart-coupon-badge::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: -10px;
+  bottom: -10px;
+  width: 52px;
+  background: rgba(255, 255, 255, 0.16);
+  transform: skewX(-18deg);
+}
+
+.cart-coupon-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.28), transparent 45%);
+  pointer-events: none;
+}
+
+.ccb-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.05;
+}
+
+.ccb-welcome {
+  font-weight: 800;
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+.ccb-main {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.2px;
+}
+
+.ccb-code {
+  font-weight: 950;
+  letter-spacing: 1px;
+}
+
+.ccb-hint {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+@media (max-width: 760px) {
+  .cart-coupon-badge {
+    float: none;
+    width: 100%;
+    margin: 10px 0 0;
+  }
+
+  .cart-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+#cart-items {
+  clear: both;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #e6f2ff;
+  border: 1px solid #252a39;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.cart-summary {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+form label {
+  display: block;
+  margin: 8px 0;
+}
+
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #364159;
+  background: #e6f2ff;
+  color: #1f2a37;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #9aa7bd;
+}
+
+
+/* ---- Admin helpers ---- */
+.card {
+  background: #e6f2ff;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+.form-grid label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.form-grid input,
+.form-grid select,
+.admin-table input,
+.admin-table select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #e6f2ff;
+  color: #1f2a37;
+}
+
+.admin-table {
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: #9aa7bd;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* Botões de confirmação */
+.btn-confirm,
+.btn-entrar {
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: #e6f2ff;
+  border: 1px solid #37415a;
+  color: #1f2a37;
+  cursor: pointer;
+}
+
+.btn-confirm:hover,
+.btn-entrar:hover { filter: brightness(1.1); }
+
+/* Botão de checkout grande e destacado */
+.btn-checkout-large {
+  padding: 14px 18px;
+  font-size: 1.05rem;
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+/* Seletor mais específico para garantir override sobre .btn-confirm */
+.cart-summary details form .btn-confirm.btn-checkout-large,
+.cart-summary details .btn-confirm.btn-checkout-large {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* Botões da tabela admin */
+.admin-table button {
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid #ccc;
+  color: #0b0d10;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.admin-table button:hover {
+  filter: brightness(0.95);
+}
+
+/* Botões de abas */
+.tab-btn {
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #ccc;
+  color: #0b0d10;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-btn:hover {
+  filter: brightness(0.95);
+}
+
+.tab-btn.active {
+  outline: 2px solid #4b84ff;
+}
+
+
+/* Botões mais bonitos */
+button, .btn {
+  background: linear-gradient(135deg, #4da3ff, #80c1ff);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #1f2a37;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  opacity: 0.95;
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+
+/* Ajuste de texto para fundo claro */
+h1, h2, h3, h4, h5 {
+  color: #0f172a;
+}
+
+p, label, span, li {
+  color: #1f2a37;
+}
+
+input, select, textarea {
+  color: #0f172a;
+  background: #ffffff;
+}
+
+
+/* -------- Admin: botões vermelhos -------- */
+.admin-page button,
+.admin-page .btn {
+  background: linear-gradient(135deg, #ff4d4d, #ff8a8a);
+  color: #ffffff;
+}
+
+.admin-page button:hover,
+.admin-page .btn:hover {
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  opacity: 0.97;
+}
+
+/* Botões dentro de tabelas no admin */
+.admin-page .admin-table button {
+  background: linear-gradient(135deg, #ff4d4d, #ff8a8a);
+  border: none;
+  color: #ffffff;
+}
+
+
+/* -------- Extra: Favoritos -------- */
+.card-actions{
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fav-btn{
+  width: 42px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  background: rgba(255,255,255,0.75);
+  color: #e11d48;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.fav-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  opacity: 0.95;
+}
+
+.fav-btn.is-fav{
+  background: rgba(225, 29, 72, 0.12);
+  border-color: rgba(225, 29, 72, 0.35);
+}
+
+
+/* Inputs readonly (ex.: email no checkout) */
+input[readonly]{
+  opacity: 0.9;
+  background: rgba(255,255,255,0.85);
+}
+
+/* -------- Auth (Login / Criar conta) -------- */
+.auth-screen{
+  min-height: calc(100vh - 220px); /* header + margens + footer (aprox.) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 0;
+}
+
+.auth-card{
+  width: min(440px, 100%);
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.auth-title{
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.auth-form label{
+  display: grid;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.auth-btn{
+  width: 100%;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-weight: 800;
+}
+
+.auth-msg{
+  min-height: 22px;
+  margin: 10px 0 6px;
+  text-align: center;
+}
+
+.auth-link{
+  width: 100%;
+  margin-top: 6px;
+  background: transparent;
+  border: 1px dashed rgba(15, 23, 42, 0.35);
+  border-radius: 14px;
+  padding: 10px 14px;
+}
+
+.auth-hidden{ display: none; }
